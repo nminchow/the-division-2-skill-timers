@@ -20,6 +20,9 @@ const mutations = {
   editing(state, value) {
     state.editing = value;
   },
+  update(state, value) {
+    state.keys = value;
+  },
 };
 
 export default {
