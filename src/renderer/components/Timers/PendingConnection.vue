@@ -1,7 +1,9 @@
 <template>
   <section>
     <div class="lds-dual-ring"></div>
-    <h1 class="loader-in-line">Awaiting Connection...</h1>
+    <section class="text-wrapper">
+      <h1 class="loader-in-line">Awaiting Connection...</h1>
+    </section>
   </section>
 </template>
 <style>
@@ -31,6 +33,15 @@
 }
 
 .loader-in-line {
+  vertical-align: middle;
+  padding-bottom: 25px;
   display: inline;
+}
+
+.text-wrapper {
+  position: relative;
+  display: inline-flex;
+  margin: auto;
+  top: -20px;
 }
 </style>

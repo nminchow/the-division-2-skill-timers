@@ -1,10 +1,12 @@
 <template>
-  <span class="ability">
-    <h3>{{ ky.name }} </h3>
-    <vue-countdown class="countdown" @end="reset" @progress="handleProgress" ref="countdown" :auto-start="false" :interval="100" :time="this.interval">
-      <template slot-scope="props">{{ props.minutes }}:{{ props.seconds }}:{{ props.milliseconds / 100 }}</template>
-    </vue-countdown>
-  </span>
+  <v-list-tile-content>
+    <v-list-tile-title class="title">
+      <vue-countdown class="countdown" @end="reset" @progress="handleProgress" ref="countdown" :auto-start="false" :interval="100" :time="this.interval">
+        <template slot-scope="props">{{ props.minutes.toString().padStart(2, '0') }}:{{ props.seconds.toString().padStart(2, '0') }}:{{ (props.milliseconds / 100).toString().padStart(2, '0') }}</template>
+      </vue-countdown>
+    </v-list-tile-title>
+    <v-list-tile-sub-title>{{ ky.name }}</v-list-tile-sub-title>
+  </v-list-tile-content>
 </template>
 
 <script>
@@ -121,7 +123,12 @@ h3 {
   display: inline;
 }
 
+.title {
+  height: 40px;
+}
+
 .countdown {
+  line-height: 33px;
   font-size: 2em;
   margin-left: 1%;
 }

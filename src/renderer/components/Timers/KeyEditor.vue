@@ -19,8 +19,8 @@
           >
             <v-text-field
               v-model="ky.interval"
-              mask="##########"
-              label="Countdown Time (milliseconds)"
+              mask="###"
+              label="Countdown Time (seconds)"
             ></v-text-field>
           </v-flex>
           <v-flex
@@ -29,15 +29,15 @@
           >
             <v-text-field
               v-model="ky.notification"
-              mask="##########"
-              label="Notification Time (milliseconds)"
+              mask="###"
+              label="Notification Time (seconds)"
             ></v-text-field>
           </v-flex>
         </v-layout>
       </v-container>
     </v-form>
-    <v-btn dark color="rgb(62, 156, 101)" @click="save">Save</v-btn>
-    <v-btn dark color="#ff6a13" @click="updating">Cancel</v-btn>
+    <v-btn dark color="#ff6a13" @click="save">Save</v-btn>
+    <v-btn dark color="grey" @click="updating">Cancel</v-btn>
   </span>
 </template>
 
@@ -45,8 +45,8 @@
   const save = function updating() {
     const numberified = this.keys.map(x => ({
       ...x,
-      interval: parseInt(x.interval, 10),
-      notification: parseInt(x.notification, 10),
+      interval: (parseInt(x.interval, 10) * 1000),
+      notification: (parseInt(x.notification, 10) * 1000),
     }));
     this.$store.commit('keyListeners/update', numberified);
     this.$store.commit('keyListeners/editing', false);
@@ -67,7 +67,12 @@
       save,
     },
     created() {
-      this.keys = this.$store.state.keyListeners.keys.map(x => ({ ...x }));
+      // divide by 1000 here
+      this.keys = this.$store.state.keyListeners.keys.map(x => ({
+        ...x,
+        interval: x.interval / 1000,
+        notification: x.notification / 1000,
+      }));
     },
   };
 </script>

@@ -10,6 +10,11 @@ export default new Router({
       name: 'timers',
       component: require('@/components/Timers').default,
     },
+    {
+      path: '/about',
+      name: 'about',
+      component: require('@/components/About').default,
+    },
     // {
     //   path: '/landing-page',
     //   name: 'landing-page',
