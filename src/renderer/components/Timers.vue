@@ -19,6 +19,9 @@
         <v-btn dark color="#ff6a13" @click="updating">Edit</v-btn>
         <br>
         <br>
+        <v-btn @click="quit" dark small color="grey">
+          Quit
+        </v-btn>
         <v-btn @click="toAbout" dark small color="grey">
           help/about
         </v-btn>
@@ -39,6 +42,10 @@
     this.$router.push('about');
   };
 
+  const quit = function quit() {
+    ipcRenderer.send('quit');
+  };
+
   const updating = function updating() {
     this.$store.commit('keyListeners/editing', true);
   };
@@ -51,6 +58,7 @@
     },
     methods: {
       toAbout,
+      quit,
       updating,
     },
     computed: {

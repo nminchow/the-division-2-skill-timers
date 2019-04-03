@@ -20,7 +20,7 @@
             <v-text-field
               v-model="ky.interval"
               mask="###"
-              label="Countdown Time (seconds)"
+              label="Ability Time (seconds)"
             ></v-text-field>
           </v-flex>
           <v-flex

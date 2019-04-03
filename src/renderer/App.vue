@@ -17,4 +17,8 @@
 * {
   font-family: 'Exo', sans-serif;
 }
+
+button, .v-text-field {
+  -webkit-app-region: no-drag;
+}
 </style>

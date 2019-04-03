@@ -19,9 +19,14 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
-    width: 1000,
+    height: 340,
+    width: 525,
     frame: false,
+    fullscreenable: false,
+  });
+
+  ipcMain.on('quit', () => {
+    mainWindow.close();
   });
 
   mainWindow.loadURL(winURL);
@@ -29,6 +34,8 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  mainWindow.on('maximize', () => mainWindow.unmaximize());
 }
 
 app.on('ready', createWindow);
