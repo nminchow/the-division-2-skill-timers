@@ -67,8 +67,8 @@
     return JSON.parse(JSON.stringify(this.ky.interval));
   };
 
-  const handleProgress = function handleProgress({ seconds }) {
-    if (!this.alerted && seconds < this.ky.notification / 1000) {
+  const handleProgress = function handleProgress({ totalSeconds }) {
+    if (!this.alerted && totalSeconds < this.ky.notification / 1000) {
       this.alerted = true;
       this.sound.play();
     }

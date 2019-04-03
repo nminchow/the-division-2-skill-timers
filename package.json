@@ -19,7 +19,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "the-division-2-skill-timers",
+    "productName": "ISAC+",
     "appId": "com.example.yourapp",
     "directories": {
       "output": "build"
@@ -46,7 +46,8 @@
       "icon": "build/icons/icon.icns"
     },
     "win": {
-      "icon": "build/icons/icon.ico"
+      "icon": "build/icons/icon.ico",
+      "target": "portable"
     },
     "linux": {
       "icon": "build/icons"

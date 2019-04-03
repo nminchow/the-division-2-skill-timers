@@ -5,7 +5,7 @@ const state = {
 };
 
 const getters = {
-  gameActive: state => state.title.includes('the-division-2-skill-timers'),
+  gameActive: state => state.title.includes('Tom Clancy\'s The Division 2'),
 };
 
 const mutations = {
