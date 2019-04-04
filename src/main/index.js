@@ -23,6 +23,9 @@ function createWindow() {
     width: 525,
     frame: false,
     fullscreenable: false,
+    webPreferences: {
+      webSecurity: false,
+    },
   });
 
   ipcMain.on('quit', () => {

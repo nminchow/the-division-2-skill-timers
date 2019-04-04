@@ -17,6 +17,7 @@
   import VueCountdown from '@chenfengyuan/vue-countdown';
   import { Howl } from 'howler';
   import { mapGetters } from 'vuex';
+  import path from 'path';
 
   const { ipcRenderer } = require('electron');
 
@@ -104,8 +105,9 @@
     created() {
       ipcRenderer.on('keyupEmitted', this.keyup);
       ipcRenderer.on('keydownEmitted', this.keydown);
+      const pathToAsset = path.join(__static, '/notification.mp3');
       this.sound = new Howl({
-        src: ['/static/notification.mp3'],
+        src: [pathToAsset],
       });
     },
     components: {
