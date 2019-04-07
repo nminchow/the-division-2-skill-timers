@@ -22,12 +22,14 @@
   const { ipcRenderer } = require('electron');
 
   const keydown = function keydown(_event, keypress) {
+    console.log(keypress.keycode); // eslint-disable-line no-console
     if (!this.iscode(keypress)) return;
     if (this.keyPressed !== 0) return;
     this.keyPressed = Date.now();
   };
 
   const keyup = function keyup(_event, keypress) {
+    console.log(keypress.keycode); // eslint-disable-line no-console
     if (!this.iscode(keypress)) return;
     const ellapsed = Date.now() - this.keyPressed;
     this.keyPressed = 0;
@@ -61,7 +63,7 @@
   };
 
   const iscode = function iscode({ keycode }) {
-    return keycode === this.ky.key && this.gameActive;
+    return (keycode === this.ky.key || keycode === `gp-${this.ky.gamepad}`) && this.gameActive;
   };
 
   const clonedInterval = function clonedInterval() {
@@ -70,6 +72,7 @@
 
   const handleProgress = function handleProgress({ totalSeconds }) {
     if (!this.alerted && totalSeconds < this.ky.notification / 1000) {
+      // add vibration here once electron supports
       this.alerted = true;
       this.sound.play();
     }

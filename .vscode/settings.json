@@ -1,5 +1,10 @@
 {
   "files.watcherExclude": {
-    "**/build/win-unpacked/**": true
+    "**/build/win-unpacked/**": true,
+    "**/build/win-unpacked/*/**": true
+  },
+  "files.exclude": {
+    "**/build/win-unpacked/**": true,
+    "**/build/win-unpacked/*/**": true
   }
 }

@@ -50,16 +50,57 @@
     this.$store.commit('keyListeners/editing', true);
   };
 
+  const getGamepadData = function getGamepadData() {
+    const gamepads = navigator.getGamepads();
+    const pressedButtons = Array.from({ length: gamepads.length })
+      .map((x, i) => gamepads[i]).filter(x => x !== null)
+      .map(gamePad => gamePad.buttons.reduce((accumulator, element, index) => {
+        if (element.pressed) {
+          accumulator.push(index);
+        }
+
+        return accumulator;
+      }, []));
+
+    pressedButtons.forEach((controller, index) => {
+      const newlyPressed = controller
+        .filter(x => !(this.currentlyPressedButtons[index] || []).includes(x));
+      newlyPressed.forEach(pressed => ipcRenderer.send('bounce', 'keydownEmitted', {
+        keycode: `gp-${pressed}`,
+      }));
+
+      const released = (this.currentlyPressedButtons[index] || [])
+        .filter(x => !controller.includes(x));
+      released.forEach(pressed => ipcRenderer.send('bounce', 'keyupEmitted', {
+        keycode: `gp-${pressed}`,
+      }));
+    });
+
+    this.currentlyPressedButtons = pressedButtons;
+  };
+
   export default {
     name: 'timers',
+    data() {
+      return {
+        gamepadPoller: null,
+        currentlyPressedButtons: [],
+      };
+    },
     created() {
+      this.gamepadPoller = setInterval(this.getGamepadData, 25);
       this.$store.dispatch('activeWindow/listenForActive');
-      ipcRenderer.send('start-listener');
+      console.log(navigator); // eslint-disable-line no-console
+      ipcRenderer.send('start-listener', navigator.getGamepads);
+    },
+    destroyed() {
+      clearInterval(this.gamepadPoller);
     },
     methods: {
       toAbout,
       quit,
       updating,
+      getGamepadData,
     },
     computed: {
       ...mapGetters('activeWindow', [

@@ -1,6 +1,7 @@
 import { app, BrowserWindow, globalShortcut, ipcMain  } from 'electron' // eslint-disable-line
 
 const ioHook = require('iohook');
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -90,6 +91,10 @@ ipcMain.on('start-listener', (event) => {
   });
 });
 
+ipcMain.on('bounce', (event, name, data) => {
+  event.sender.send(name, data);
+});
+
 app.on('before-quit', () => {
   ioHook.unload();
   ioHook.stop();
@@ -99,6 +104,7 @@ app.on('before-quit', () => {
 app.on('ready', () => {
   ioHook.start();
 });
+
 
 /**
  * Auto Updater
