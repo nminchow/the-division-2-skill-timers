@@ -73,6 +73,19 @@
   const handleProgress = function handleProgress({ totalSeconds }) {
     if (!this.alerted && totalSeconds < this.ky.notification / 1000) {
       // add vibration here once electron supports
+      const gamepads = navigator.getGamepads();
+
+      Array.from({ length: gamepads.length })
+        .map((x, i) => gamepads[i])
+        .filter(x => x !== null)
+        .forEach((gamepad) => {
+          gamepad.vibrationActuator.playEffect('dual-rumble', {
+            startDelay: 0,
+            duration: 500,
+            weakMagnitude: 0.5,
+            strongMagnitude: 1.0,
+          });
+        });
       this.alerted = true;
       this.sound.play();
     }
