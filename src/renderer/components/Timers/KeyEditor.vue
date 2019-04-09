@@ -9,7 +9,6 @@
           >
             <v-text-field
               v-model="ky.name"
-              :counter="10"
               label="Label"
             ></v-text-field>
           </v-flex>
@@ -42,6 +41,8 @@
 </template>
 
 <script>
+  const currentWindow = require('electron').remote.getCurrentWindow();
+
   const save = function updating() {
     const numberified = this.keys.map(x => ({
       ...x,
@@ -67,12 +68,16 @@
       save,
     },
     created() {
+      currentWindow.setSize(525, 340);
       // divide by 1000 here
       this.keys = this.$store.state.keyListeners.keys.map(x => ({
         ...x,
         interval: x.interval / 1000,
         notification: x.notification / 1000,
       }));
+    },
+    destroyed() {
+      currentWindow.setSize(340, 340);
     },
   };
 </script>

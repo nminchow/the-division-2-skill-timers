@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  const currentWindow = require('electron').remote.getCurrentWindow();
 
   const toHome = function toHome() {
     this.$router.push('/');
@@ -35,6 +36,12 @@
     name: 'about',
     methods: {
       toHome,
+    },
+    created() {
+      currentWindow.setSize(525, 340);
+    },
+    destroyed() {
+      currentWindow.setSize(340, 340);
     },
   };
 </script>
