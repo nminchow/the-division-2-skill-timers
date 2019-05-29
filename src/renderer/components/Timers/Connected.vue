@@ -1,7 +1,6 @@
 <template>
   <section>
     <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-    <!-- <h1 class="loader-in-line">Connected!</h1> -->
   </section>
 </template>
 <style>

@@ -44,21 +44,6 @@ function createWindow() {
 
 app.on('ready', createWindow);
 
-// app.on('ready', () => {
-//   console.log('called');
-//   // Register a 'CommandOrControl+X' shortcut listener.
-//   const ret = globalShortcut.register('CommandOrControl+X', () => {
-//     console.log('CommandOrControl+X is pressed');
-//   });
-
-//   if (!ret) {
-//     console.log('registration failed');
-//   }
-
-//   // Check whether a shortcut is registered.
-//   console.log(globalShortcut.isRegistered('CommandOrControl+X'));
-// });
-
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
@@ -77,11 +62,10 @@ ipcMain.on('start-listener', (event) => {
   if (started) return;
   started = true;
 
-  // note that ihook seems to emit an event called 'keypress' to ipcRender, so we use our
-  // own as not to collide.
-  // there is no reason we couldn't just rely on the existing event, but its
-  // POSSIBLE that iohook could change their internals, and it would be a
-  // super tricky bug.
+  // Note that ihook seems to emit an event called 'keypress' to ipcRender, so
+  // we use our own as not to collide. There is no reason we couldn't just rely
+  // on the existing event, but its POSSIBLE that iohook could change its
+  // internals, and it would be a super tricky bug.
   ioHook.on('keydown', (keypress) => {
     event.sender.send('keydownEmitted', keypress);
   });
@@ -91,6 +75,9 @@ ipcMain.on('start-listener', (event) => {
   });
 });
 
+// This 'bounce' event is used by the gampad input detection in Timvers.vue's
+// "getGamepadData". Functionally, it allows us to simulate a keypress similar
+// to the ones sent by ioHook.
 ipcMain.on('bounce', (event, name, data) => {
   event.sender.send(name, data);
 });

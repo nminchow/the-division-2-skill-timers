@@ -49,7 +49,7 @@
       this.reset();
     }
 
-    // short press while running
+    // otherwise, this was a short press while running
   };
 
   const reset = function reset() {
@@ -72,7 +72,6 @@
 
   const handleProgress = function handleProgress({ totalSeconds }) {
     if (!this.alerted && totalSeconds < this.ky.notification / 1000) {
-      // add vibration here once electron supports
       const gamepads = navigator.getGamepads();
 
       Array.from({ length: gamepads.length })

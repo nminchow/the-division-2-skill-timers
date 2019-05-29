@@ -50,6 +50,8 @@
     this.$store.commit('keyListeners/editing', true);
   };
 
+  // polls for gamepad input data and then simulates a keyboard input event by
+  // 'bounce'-ing it off of the main process
   const getGamepadData = function getGamepadData() {
     const gamepads = navigator.getGamepads();
     const pressedButtons = Array.from({ length: gamepads.length })
@@ -65,12 +67,14 @@
     pressedButtons.forEach((controller, index) => {
       const newlyPressed = controller
         .filter(x => !(this.currentlyPressedButtons[index] || []).includes(x));
+
       newlyPressed.forEach(pressed => ipcRenderer.send('bounce', 'keydownEmitted', {
         keycode: `gp-${pressed}`,
       }));
 
       const released = (this.currentlyPressedButtons[index] || [])
         .filter(x => !controller.includes(x));
+
       released.forEach(pressed => ipcRenderer.send('bounce', 'keyupEmitted', {
         keycode: `gp-${pressed}`,
       }));
@@ -91,7 +95,7 @@
       this.gamepadPoller = setInterval(this.getGamepadData, 25);
       this.$store.dispatch('activeWindow/listenForActive');
       console.log(navigator); // eslint-disable-line no-console
-      ipcRenderer.send('start-listener', navigator.getGamepads);
+      ipcRenderer.send('start-listener');
     },
     destroyed() {
       clearInterval(this.gamepadPoller);
@@ -124,6 +128,7 @@
 .fade-enter-active, .fade-leave-active {
   transition: opacity .2s;
 }
+
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
@@ -131,6 +136,7 @@
 .component-fade-enter-active, .component-fade-leave-active {
   transition: opacity .3s ease;
 }
+
 .component-fade-enter, .component-fade-leave-to
 /* .component-fade-leave-active below version 2.1.8 */ {
   opacity: 0;

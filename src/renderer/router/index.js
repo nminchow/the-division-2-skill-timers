@@ -15,11 +15,6 @@ export default new Router({
       name: 'about',
       component: require('@/components/About').default,
     },
-    // {
-    //   path: '/landing-page',
-    //   name: 'landing-page',
-    //   component: require('@/components/LandingPage').default,
-    // },
     {
       path: '*',
       redirect: '/',

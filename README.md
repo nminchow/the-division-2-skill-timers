@@ -2,7 +2,15 @@
 
 > Skill timer assistant for \"the division 2\"
 
-#### Build Setup
+[Executable Download](https://github.com/nminchow/the-division-2-skill-timers/raw/master/build/ISAC%2B%200.0.1.exe)
+
+This app aims to help remind you to recall your skills in "The Division 2" before their timers are up. It does this by listening for "Q" or "E" keyboard (or gamepad) events, and starting a timer when pressed. When you should recall the skill, an audio queue is played.
+
+The length of your timers is totally configurable via the "edit" menu.
+
+# Contributing
+
+## Development Setup
 
 ``` bash
 # install dependencies
@@ -14,11 +22,11 @@ npm run dev
 # build electron application for production
 npm run build
 
-
 # lint all JS/Vue component files in `src/`
 npm run lint
-
 ```
+
+**Note:** The app will only respond to key commands when it detects a window open called "Tom Clancy's The Division 2". You can either disable that check [here](https://github.com/nminchow/the-division-2-skill-timers/blob/master/src/renderer/store/modules/activeWindow.js#L8), or create a window with that title. On Windows, a notepad window's title is the name of the file, so creating a file called "Tom Clancy's The Division 2" will simulate the game being open.
 
 ---
 

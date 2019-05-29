@@ -36,7 +36,7 @@
       </v-container>
     </v-form>
     <v-btn dark color="#ff6a13" @click="save">Save</v-btn>
-    <v-btn dark color="grey" @click="updating">Cancel</v-btn>
+    <v-btn dark color="grey" @click="cancel">Cancel</v-btn>
   </span>
 </template>
 
@@ -53,7 +53,7 @@
     this.$store.commit('keyListeners/editing', false);
   };
 
-  const updating = function updating() {
+  const cancel = function cancel() {
     this.$store.commit('keyListeners/editing', false);
   };
 
@@ -64,12 +64,11 @@
       };
     },
     methods: {
-      updating,
+      cancel,
       save,
     },
     created() {
       currentWindow.setSize(525, 340);
-      // divide by 1000 here
       this.keys = this.$store.state.keyListeners.keys.map(x => ({
         ...x,
         interval: x.interval / 1000,
