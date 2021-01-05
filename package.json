@@ -57,7 +57,7 @@
     "@chenfengyuan/vue-countdown": "^1.1.0",
     "@fortawesome/fontawesome-free": "^5.8.1",
     "active-win": "^5.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "howler": "^2.1.1",
     "iohook": "^0.4.2",
     "vue": "^2.5.16",
